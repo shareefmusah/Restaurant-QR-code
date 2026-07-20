@@ -1,0 +1,57 @@
+:root {
+  --paper: #FBF7EF;
+  --paper-raised: #FFFFFF;
+  --ink: #241C14;
+  --ink-soft: #5C5148;
+  --forest: #2E4034;
+  --forest-dark: #1F2C24;
+  --gold: #B9862F;
+  --gold-light: #E4C589;
+  --alert: #A23B2E;
+  --line: #E4DACB;
+  --line-strong: #241C14;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+a { color: inherit; }
+
+::selection {
+  background: var(--gold-light);
+}
+
+:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
