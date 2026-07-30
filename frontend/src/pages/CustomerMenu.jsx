@@ -77,6 +77,9 @@ export default function CustomerMenu() {
   return (
     <div className="menu-shell">
       <header className="menu-header">
+        <div className="menu-header-logo">
+          <div className="menu-header-logo-mark">SG</div>
+        </div>
         <p className="eyebrow">{table.name}</p>
         <h1>{menu.restaurant.name}</h1>
         <p className="menu-subhead">Tap a dish to add it to your order. No account needed.</p>

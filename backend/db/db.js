@@ -73,7 +73,7 @@ function hashPassword(password, salt) {
 function seed() {
   const settingsExists = db.prepare('SELECT id FROM restaurant_settings WHERE id = 1').get();
   if (!settingsExists) {
-    db.prepare('INSERT INTO restaurant_settings (id, name, currency) VALUES (1, ?, ?)').run('My Restaurant', '$');
+    db.prepare('INSERT INTO restaurant_settings (id, name, currency) VALUES (1, ?, ?)').run('Swiss Gardens', '$');
   }
 
   const adminExists = db.prepare('SELECT id FROM admins WHERE username = ?').get('admin');

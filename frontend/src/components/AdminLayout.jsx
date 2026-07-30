@@ -11,7 +11,9 @@ export default function AdminLayout({ active, children }) {
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar">
-        <p className="admin-brand">Table Ticket</p>
+        <div className="admin-brand-logo">SG</div>
+        <p className="admin-brand">Swiss Gardens</p>
+        <span className="admin-brand-sub">Staff Portal</span>
         <nav>
           <Link to="/admin/dashboard" className={active === 'dashboard' ? 'active' : ''}>Live orders</Link>
           <Link to="/admin/menu" className={active === 'menu' ? 'active' : ''}>Menu</Link>

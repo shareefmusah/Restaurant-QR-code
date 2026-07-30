@@ -27,6 +27,13 @@ export default function AdminLogin() {
   return (
     <div className="admin-login-shell">
       <form className="admin-login-card" onSubmit={handleSubmit}>
+        <div className="admin-login-brand">
+          <div className="admin-login-brand-mark">SG</div>
+          <div>
+            <p className="admin-login-brand-name">Swiss Gardens</p>
+            <span className="admin-login-brand-sub">Staff Portal</span>
+          </div>
+        </div>
         <p className="eyebrow">Staff access</p>
         <h1>Sign in</h1>
         <label>
