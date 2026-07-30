@@ -21,7 +21,7 @@ export default function CustomerMenu() {
     }).catch(() => setError('Could not load the menu right now.'));
   }, [tableId]);
 
-  const currency = menu?.restaurant?.currency || '$';
+  const currency = menu?.restaurant?.currency || 'GH₵';
 
   const cartList = Object.values(cart);
   const cartCount = cartList.reduce((sum, c) => sum + c.qty, 0);

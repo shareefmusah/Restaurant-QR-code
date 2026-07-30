@@ -107,7 +107,7 @@ export default function AdminDashboard() {
                         </li>
                       ))}
                     </ul>
-                    <div className="order-card-total">${order.total.toFixed(2)}</div>
+                    <div className="order-card-total">GH₵{order.total.toFixed(2)}</div>
                     <div className="order-card-actions">
                       <button className="advance-btn" onClick={() => advance(order, col.next)}>{col.nextLabel}</button>
                       {col.key === 'pending' && (

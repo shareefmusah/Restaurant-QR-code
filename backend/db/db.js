@@ -11,7 +11,7 @@ db.exec(`
 CREATE TABLE IF NOT EXISTS restaurant_settings (
   id INTEGER PRIMARY KEY CHECK (id = 1),
   name TEXT NOT NULL DEFAULT 'My Restaurant',
-  currency TEXT NOT NULL DEFAULT '$'
+  currency TEXT NOT NULL DEFAULT 'GH₵'
 );
 
 CREATE TABLE IF NOT EXISTS admins (
@@ -73,7 +73,7 @@ function hashPassword(password, salt) {
 function seed() {
   const settingsExists = db.prepare('SELECT id FROM restaurant_settings WHERE id = 1').get();
   if (!settingsExists) {
-    db.prepare('INSERT INTO restaurant_settings (id, name, currency) VALUES (1, ?, ?)').run('Swiss Gardens', '$');
+    db.prepare('INSERT INTO restaurant_settings (id, name, currency) VALUES (1, ?, ?)').run('Swiss Gardens', 'GH₵');
   }
 
   const adminExists = db.prepare('SELECT id FROM admins WHERE username = ?').get('admin');

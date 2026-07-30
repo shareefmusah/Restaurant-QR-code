@@ -66,7 +66,7 @@ export default function AdminMenu() {
                   <p className="admin-item-name">{item.name}</p>
                   {item.description && <p className="admin-item-desc">{item.description}</p>}
                 </div>
-                <span className="admin-item-price">${item.price.toFixed(2)}</span>
+                <span className="admin-item-price">GH₵{item.price.toFixed(2)}</span>
                 <label className="toggle">
                   <input type="checkbox" checked={!!item.available} onChange={() => toggleAvailable(item)} />
                   <span>{item.available ? 'Available' : 'Hidden'}</span>

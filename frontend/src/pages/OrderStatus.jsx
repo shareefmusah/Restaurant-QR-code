@@ -68,14 +68,14 @@ export default function OrderStatus() {
           {order.items.map(it => (
             <div className="ticket-line" key={it.id}>
               <span>{it.quantity}× {it.name_at_order}</span>
-              <span>${(it.price_at_order * it.quantity).toFixed(2)}</span>
+              <span>GH₵{(it.price_at_order * it.quantity).toFixed(2)}</span>
             </div>
           ))}
         </div>
         <div className="ticket-divider" />
         <div className="ticket-line total">
           <span>Total</span>
-          <span>${order.total.toFixed(2)}</span>
+          <span>GH₵{order.total.toFixed(2)}</span>
         </div>
         <p className="ticket-note">Pay at the counter when your order is served.</p>
       </div>
