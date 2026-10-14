@@ -1,3 +1,5 @@
+import { cloneElement } from 'react';
+
 /* -----------------------------------------------
    Swiss Gardens — SVG Icon Library
    All icons are 1em × 1em, stroke-based, Lucide-style
@@ -178,10 +180,21 @@ export function Icon({ name, size = 16, className = '', style = {} }) {
   return (
     <span
       className={`icon-wrap ${className}`}
-      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: size, height: size, flexShrink: 0, ...style }}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: size,
+        height: size,
+        minWidth: size,
+        minHeight: size,
+        flexShrink: 0,
+        lineHeight: 0,
+        ...style,
+      }}
       aria-hidden="true"
     >
-      {svg}
+      {cloneElement(svg, { width: '100%', height: '100%' })}
     </span>
   );
 }

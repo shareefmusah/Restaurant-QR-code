@@ -623,15 +623,6 @@ export default function CustomerMenu() {
       {detailItem && (
         <div className="modal-backdrop-blur" onClick={() => setDetailItem(null)}>
           <div className="dish-modal-sheet" onClick={e => e.stopPropagation()}>
-            <button
-              type="button"
-              className="modal-close-icon"
-              onClick={() => setDetailItem(null)}
-              aria-label="Close dish preview"
-            >
-              <Icon name="x" size={18} />
-            </button>
-
             {getItemImage(detailItem) && (
               <div className="modal-hero-image-wrap">
                 <img
@@ -642,6 +633,15 @@ export default function CustomerMenu() {
                 <div className="modal-image-gradient" />
               </div>
             )}
+
+            <button
+              type="button"
+              className="modal-close-icon"
+              onClick={() => setDetailItem(null)}
+              aria-label="Close dish preview"
+            >
+              <Icon name="x" size={18} />
+            </button>
 
             <div className="modal-content-pad">
               <div className="modal-title-price-row">
