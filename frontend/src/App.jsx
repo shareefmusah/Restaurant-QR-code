@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Link, Outlet } from 'react-router-dom';
 import CustomerMenu from './pages/CustomerMenu';
 import OrderStatus from './pages/OrderStatus';
 import AdminLogin from './pages/AdminLogin';
@@ -8,6 +8,7 @@ import AdminMenu from './pages/AdminMenu';
 import AdminTables from './pages/AdminTables';
 import { api } from './api';
 import { Icon } from './components/Icons';
+import { AdminOrderProvider } from './context/AdminOrderContext';
 
 function RequireAuth({ children }) {
   const token = localStorage.getItem('admin_token');
@@ -72,6 +73,16 @@ function Home() {
   );
 }
 
+function AdminShellWrapper() {
+  return (
+    <RequireAuth>
+      <AdminOrderProvider>
+        <Outlet />
+      </AdminOrderProvider>
+    </RequireAuth>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -80,9 +91,11 @@ export default function App() {
         <Route path="/menu/:tableId" element={<CustomerMenu />} />
         <Route path="/order/:orderId" element={<OrderStatus />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<RequireAuth><AdminDashboard /></RequireAuth>} />
-        <Route path="/admin/menu" element={<RequireAuth><AdminMenu /></RequireAuth>} />
-        <Route path="/admin/tables" element={<RequireAuth><AdminTables /></RequireAuth>} />
+        <Route element={<AdminShellWrapper />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/menu" element={<AdminMenu />} />
+          <Route path="/admin/tables" element={<AdminTables />} />
+        </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

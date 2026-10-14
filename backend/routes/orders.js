@@ -42,6 +42,7 @@ router.post('/', (req, res) => {
 
   const io = req.app.get('io');
   io.to('admin').emit('order:new', fullOrder);
+  io.emit('order:new', fullOrder);
 
   res.json(fullOrder);
 });
@@ -79,6 +80,7 @@ router.put('/:id/status', requireAuth, (req, res) => {
 
   const io = req.app.get('io');
   io.to('admin').emit('order:updated', updated);
+  io.emit('order:updated', updated);
   io.to(`table:${order.table_id}`).emit('order:updated', updated);
 
   res.json(updated);
