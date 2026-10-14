@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function AdminLayout({ active, children }) {
+export default function AdminLayout({ active, orderCount, children }) {
   const navigate = useNavigate();
 
   function logout() {
@@ -15,7 +15,12 @@ export default function AdminLayout({ active, children }) {
         <p className="admin-brand">Swiss Gardens</p>
         <span className="admin-brand-sub">Staff Portal</span>
         <nav>
-          <Link to="/admin/dashboard" className={active === 'dashboard' ? 'active' : ''}>Live orders</Link>
+          <Link to="/admin/dashboard" className={`nav-link-row ${active === 'dashboard' ? 'active' : ''}`}>
+            <span>Live orders</span>
+            {typeof orderCount === 'number' && orderCount > 0 && (
+              <span className="sidebar-order-pill">{orderCount}</span>
+            )}
+          </Link>
           <Link to="/admin/menu" className={active === 'menu' ? 'active' : ''}>Menu</Link>
           <Link to="/admin/tables" className={active === 'tables' ? 'active' : ''}>Tables &amp; QR codes</Link>
         </nav>
