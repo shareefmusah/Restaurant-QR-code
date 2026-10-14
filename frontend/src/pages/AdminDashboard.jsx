@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../api';
 import { getSocket } from '../socket';
 import AdminLayout from '../components/AdminLayout';
@@ -12,7 +12,6 @@ const COLUMNS = [
 export default function AdminDashboard() {
   const [orders, setOrders] = useState([]);
   const [connected, setConnected] = useState(false);
-  const dingRef = useRef(null);
 
   useEffect(() => {
     api.getOrders().then(setOrders).catch(() => {});
@@ -57,7 +56,7 @@ export default function AdminDashboard() {
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
       osc.start();
       osc.stop(ctx.currentTime + 0.4);
-    } catch (e) { /* ignore */ }
+    } catch { /* ignore */ }
   }
 
   async function advance(order, nextStatus) {
@@ -68,7 +67,7 @@ export default function AdminDashboard() {
       } else {
         setOrders(prev => prev.map(o => (o.id === order.id ? updated : o)));
       }
-    } catch (e) { /* ignore */ }
+    } catch { /* ignore */ }
   }
 
   async function cancel(order) {

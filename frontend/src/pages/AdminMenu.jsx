@@ -6,7 +6,6 @@ export default function AdminMenu() {
   const [categories, setCategories] = useState([]);
   const [newCatName, setNewCatName] = useState('');
   const [editingItem, setEditingItem] = useState(null); // item object or 'new'
-  const [editingCategoryId, setEditingCategoryId] = useState(null);
 
   function load() {
     api.getAdminMenu().then(data => setCategories(data.categories));
