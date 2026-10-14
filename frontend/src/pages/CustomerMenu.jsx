@@ -14,6 +14,10 @@ const DEFAULT_IMAGES = {
   'burger': '/images/beef_burger.jpg',
   'chocolate cake': '/images/chocolate_cake.jpg',
   'cake': '/images/chocolate_cake.jpg',
+  'fresh juice': '/images/fresh_juice.jpg',
+  'juice': '/images/fresh_juice.jpg',
+  'bottled water': '/images/bottled_water.jpg',
+  'water': '/images/bottled_water.jpg',
 };
 
 const ITEM_BADGES = {

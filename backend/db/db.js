@@ -107,8 +107,8 @@ function seed() {
     insertItem.run(mains, 'Jollof Rice & Chicken', 'Classic jollof rice served with grilled chicken and fried sweet plantains', 12.00, '/images/jollof_rice_chicken.jpg', 1);
     insertItem.run(mains, 'Grilled Tilapia', 'Whole grilled tilapia with aromatic pepper sauce and charred lime', 15.00, '/images/grilled_tilapia.jpg', 2);
     insertItem.run(mains, 'Beef Burger', 'Gourmet wagyu smash burger with cheddar and seasoned fries', 10.50, '/images/beef_burger.jpg', 3);
-    insertItem.run(drinks, 'Bottled Water', 'Crisp mineral spring water, chilled', 1.50, '', 1);
-    insertItem.run(drinks, 'Fresh Juice', 'Tropical passion fruit and mango pressed juice', 3.00, '', 2);
+    insertItem.run(drinks, 'Bottled Water', 'Crisp mineral spring water, chilled', 1.50, '/images/bottled_water.jpg', 1);
+    insertItem.run(drinks, 'Fresh Juice', 'Tropical passion fruit and mango pressed juice', 3.00, '/images/fresh_juice.jpg', 2);
     insertItem.run(desserts, 'Chocolate Cake', 'Decadent dark chocolate molten cake with raspberry coulis', 4.50, '/images/chocolate_cake.jpg', 1);
   }
 }
