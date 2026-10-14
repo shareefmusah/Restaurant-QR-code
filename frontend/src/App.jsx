@@ -1,10 +1,12 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import CustomerMenu from './pages/CustomerMenu';
 import OrderStatus from './pages/OrderStatus';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminMenu from './pages/AdminMenu';
 import AdminTables from './pages/AdminTables';
+import { api } from './api';
 
 function RequireAuth({ children }) {
   const token = localStorage.getItem('admin_token');
@@ -13,12 +15,55 @@ function RequireAuth({ children }) {
 }
 
 function Home() {
+  const [tables, setTables] = useState([]);
+
+  useEffect(() => {
+    api.getTables()
+      .then(setTables)
+      .catch(() => {
+        // Fallback default tables if not yet seeded
+        setTables([
+          { id: 'table-1', name: 'Table 1' },
+          { id: 'table-2', name: 'Table 2' },
+          { id: 'table-3', name: 'Table 3' },
+          { id: 'table-4', name: 'Table 4' },
+          { id: 'table-5', name: 'Table 5' },
+          { id: 'table-6', name: 'Table 6' },
+        ]);
+      });
+  }, []);
+
   return (
-    <div className="menu-shell">
-      <div className="empty-state">
-        <p className="eyebrow">Table Ticket</p>
-        <h1>Scan a table's QR code to see its menu</h1>
-        <p>Staff: <a href="/admin/login">go to the admin dashboard</a></p>
+    <div className="landing-shell">
+      <div className="landing-card">
+        <div className="landing-brand-crest">
+          <span className="crest-initials">SG</span>
+        </div>
+        <p className="eyebrow-luxury">Swiss Gardens Fine Dining</p>
+        <h1 className="landing-title">Table Ordering Experience</h1>
+        <p className="landing-desc">
+          Scan the QR code printed on your table stand, or select your table below to browse our culinary creations and order directly.
+        </p>
+
+        <div className="landing-tables-section">
+          <span className="section-label">Select Your Table</span>
+          <div className="landing-table-grid">
+            {tables.map(t => (
+              <Link to={`/menu/${t.id}`} key={t.id} className="table-select-card">
+                <span className="table-select-icon">📍</span>
+                <span className="table-select-name">{t.name}</span>
+                <span className="table-select-action">Open Menu →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="landing-footer-bar">
+          <Link to="/admin/login" className="landing-staff-link">
+            <span>🛡️</span>
+            <span>Kitchen &amp; Staff Portal</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

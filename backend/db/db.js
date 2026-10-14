@@ -102,14 +102,14 @@ function seed() {
 
     const insertItem = db.prepare(`INSERT INTO menu_items (category_id, name, description, price, image_url, available, sort_order)
       VALUES (?, ?, ?, ?, ?, 1, ?)`);
-    insertItem.run(starters, 'Spring Rolls', 'Crispy vegetable spring rolls with sweet chili sauce', 5.50, '', 1);
-    insertItem.run(starters, 'Chicken Wings', 'Grilled wings tossed in house spice blend', 7.00, '', 2);
-    insertItem.run(mains, 'Jollof Rice & Chicken', 'Classic jollof rice served with grilled chicken', 12.00, '', 1);
-    insertItem.run(mains, 'Grilled Tilapia', 'Whole grilled tilapia with pepper sauce', 15.00, '', 2);
-    insertItem.run(mains, 'Beef Burger', 'House burger with fries', 10.50, '', 3);
-    insertItem.run(drinks, 'Bottled Water', '', 1.50, '', 1);
-    insertItem.run(drinks, 'Fresh Juice', 'Ask about today\'s flavor', 3.00, '', 2);
-    insertItem.run(desserts, 'Chocolate Cake', 'Rich layered chocolate cake', 4.50, '', 1);
+    insertItem.run(starters, 'Spring Rolls', 'Crispy vegetable spring rolls with sweet chili sauce', 5.50, '/images/spring_rolls.jpg', 1);
+    insertItem.run(starters, 'Chicken Wings', 'Grilled wings tossed in house spice blend', 7.00, '/images/chicken_wings.jpg', 2);
+    insertItem.run(mains, 'Jollof Rice & Chicken', 'Classic jollof rice served with grilled chicken and fried sweet plantains', 12.00, '/images/jollof_rice_chicken.jpg', 1);
+    insertItem.run(mains, 'Grilled Tilapia', 'Whole grilled tilapia with aromatic pepper sauce and charred lime', 15.00, '/images/grilled_tilapia.jpg', 2);
+    insertItem.run(mains, 'Beef Burger', 'Gourmet wagyu smash burger with cheddar and seasoned fries', 10.50, '/images/beef_burger.jpg', 3);
+    insertItem.run(drinks, 'Bottled Water', 'Crisp mineral spring water, chilled', 1.50, '', 1);
+    insertItem.run(drinks, 'Fresh Juice', 'Tropical passion fruit and mango pressed juice', 3.00, '', 2);
+    insertItem.run(desserts, 'Chocolate Cake', 'Decadent dark chocolate molten cake with raspberry coulis', 4.50, '/images/chocolate_cake.jpg', 1);
   }
 }
 

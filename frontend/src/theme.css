@@ -1,63 +1,116 @@
 :root {
-  /* Ash & Gold palette for Swiss Gardens */
-  --paper: #F5F3F0;
-  --paper-raised: #FFFFFF;
-  --ink: #2A2825;
-  --ink-soft: #6B6560;
+  /* =========================================================
+     Swiss Gardens — Modern Luxury Sleek Dark Theme
+     Deep Obsidian surfaces with Warm Brushed Gold accents
+     ========================================================= */
 
-  /* Primary brand: Rich gold */
-  --gold: #C49A2C;
-  --gold-light: #E8D28A;
-  --gold-dark: #8E6D1A;
+  /* Surface and Background */
+  --bg-base: #0A0D12;
+  --bg-surface: #121620;
+  --bg-surface-raised: #181D2A;
+  --bg-surface-card: #141924;
+  --bg-surface-card-hover: #1A2130;
+  --bg-surface-glass: rgba(14, 18, 26, 0.82);
+  --bg-overlay: rgba(6, 8, 12, 0.78);
 
-  /* Secondary: Deep charcoal ash */
-  --ash: #3D3A35;
-  --ash-dark: #252320;
-  --ash-mid: #4E4B45;
+  /* Brand Accents: Rich Warm Gold & Amber */
+  --gold: #E5A93C;
+  --gold-light: #F7D58C;
+  --gold-dark: #B8801C;
+  --gold-surface: rgba(229, 169, 60, 0.09);
+  --gold-border: rgba(229, 169, 60, 0.28);
+  --gold-glow: rgba(229, 169, 60, 0.24);
 
-  /* Aliases used throughout components */
+  /* Typography Colors */
+  --text-primary: #F9FAFB;
+  --text-secondary: #D6D9E0;
+  --text-muted: #9BA3B2;
+  --text-subtle: #636D7E;
+
+  /* State & Functional */
+  --emerald: #10B981;
+  --emerald-surface: rgba(16, 185, 129, 0.12);
+  --blue: #3B82F6;
+  --blue-surface: rgba(59, 130, 246, 0.12);
+  --alert: #EF4444;
+  --alert-surface: rgba(239, 68, 68, 0.12);
+
+  /* Lines & Dividers */
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --line-gold: rgba(229, 169, 60, 0.35);
+
+  /* Backwards compatibility aliases */
+  --paper: var(--bg-base);
+  --paper-raised: var(--bg-surface-card);
+  --ink: var(--text-primary);
+  --ink-soft: var(--text-muted);
+  --ash: #D6D9E0;
+  --ash-dark: #0A0D12;
+  --ash-mid: #9BA3B2;
   --forest: var(--gold);
-  --forest-dark: var(--ash-dark);
+  --forest-dark: var(--bg-surface);
 
-  --alert: #B04535;
-  --line: #E2DDD6;
-  --line-strong: #2A2825;
-
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'Lato', sans-serif;
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 
-  --radius: 6px;
+  /* Geometry & Elevation */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 6px 24px rgba(229, 169, 60, 0.3);
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html, body, #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(229, 169, 60, 0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 90%, rgba(229, 169, 60, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 100%);
+  background-attachment: fixed;
 }
 
 button {
   font-family: inherit;
   cursor: pointer;
+  border: none;
+  outline: none;
 }
 
 input, textarea, select {
   font-family: inherit;
+  color: var(--text-primary);
 }
 
-a { color: inherit; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
 ::selection {
-  background: var(--gold-light);
-  color: var(--ash-dark);
+  background: var(--gold);
+  color: #0A0D12;
 }
 
 :focus-visible {
@@ -65,6 +118,27 @@ a { color: inherit; }
   outline-offset: 2px;
 }
 
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

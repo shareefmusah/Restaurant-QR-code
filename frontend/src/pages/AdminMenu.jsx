@@ -120,7 +120,7 @@ function ItemEditorModal({ item, categories, onClose, onSaved }) {
   }
 
   return (
-    <div className="cart-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose}>
       <div className="modal-card" onClick={e => e.stopPropagation()}>
         <h2>{isNew ? 'Add menu item' : 'Edit menu item'}</h2>
         <form onSubmit={save}>

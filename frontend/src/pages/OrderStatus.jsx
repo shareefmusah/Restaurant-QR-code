@@ -4,83 +4,209 @@ import { api } from '../api';
 import { getSocket } from '../socket';
 
 const STEPS = [
-  { key: 'pending', label: 'Received' },
-  { key: 'preparing', label: 'Preparing' },
-  { key: 'ready', label: 'Ready' },
-  { key: 'served', label: 'Served' },
+  { key: 'pending', label: 'Received', icon: '📝', desc: 'Order received by kitchen staff' },
+  { key: 'preparing', label: 'Preparing', icon: '🍳', desc: 'Chef is crafting your dishes' },
+  { key: 'ready', label: 'Ready', icon: '✨', desc: 'Prepared and being plated for serving' },
+  { key: 'served', label: 'Served', icon: '🍽️', desc: 'Dishes served to your table' },
 ];
 
 export default function OrderStatus() {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [error, setError] = useState('');
+  const [socketLive, setSocketLive] = useState(false);
 
   useEffect(() => {
-    api.getOrder(orderId).then(setOrder).catch(() => setError('Order not found.'));
+    api.getOrder(orderId)
+      .then(setOrder)
+      .catch(() => setError('Order not found or has expired.'));
 
     const socket = getSocket();
     if (!socket.connected) socket.connect();
 
+    function onConnect() {
+      setSocketLive(true);
+    }
+    socket.on('connect', onConnect);
+    if (socket.connected) setSocketLive(true);
+
     function onUpdate(updated) {
-      if (String(updated.id) === String(orderId)) setOrder(updated);
+      if (String(updated.id) === String(orderId)) {
+        setOrder(updated);
+      }
     }
     socket.on('order:updated', onUpdate);
 
-    // Join the table's room once we know the order (need table_id)
     api.getOrder(orderId).then(o => {
       socket.emit('join:table', o.table_id);
     }).catch(() => {});
 
-    return () => socket.off('order:updated', onUpdate);
+    return () => {
+      socket.off('order:updated', onUpdate);
+      socket.off('connect', onConnect);
+    };
   }, [orderId]);
 
-  if (error) return <div className="menu-shell"><div className="empty-state"><h1>Not found</h1><p>{error}</p></div></div>;
-  if (!order) return <div className="menu-shell"><div className="loading-mark">Finding your order…</div></div>;
+  if (error) {
+    return (
+      <div className="menu-shell">
+        <div className="empty-state">
+          <div className="error-icon-shield">!</div>
+          <p className="eyebrow-luxury">Swiss Gardens</p>
+          <h1>Order Not Found</h1>
+          <p className="empty-state-desc">{error}</p>
+          <div className="empty-state-actions">
+            <Link to="/" className="primary-btn-link">Return to Home</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!order) {
+    return (
+      <div className="menu-shell">
+        <div className="loading-mark">
+          <div className="luxury-spinner" />
+          <p className="loading-title">Retrieving Order #{String(orderId).padStart(4, '0')}</p>
+          <span className="loading-sub">Connecting to kitchen terminal…</span>
+        </div>
+      </div>
+    );
+  }
 
   const stepIndex = STEPS.findIndex(s => s.key === order.status);
   const cancelled = order.status === 'cancelled';
+  const currentStep = STEPS[stepIndex] || STEPS[0];
 
   return (
     <div className="menu-shell">
-      <div className="ticket">
-        <div className="ticket-notch left" />
-        <div className="ticket-notch right" />
-        <p className="eyebrow">Order ticket</p>
-        <h1 className="ticket-number">#{String(order.id).padStart(4, '0')}</h1>
-        <p className="ticket-table">{order.table_name}</p>
+      {/* Top Bar */}
+      <div className="luxury-top-strip">
+        <div className="restaurant-badge">
+          <span className="crest-mark">SG</span>
+          <span className="restaurant-name">Swiss Gardens</span>
+        </div>
+        <div className="table-live-pill">
+          <span className={`live-indicator-dot ${socketLive ? 'active' : ''}`} />
+          <span className="table-live-label">{order.table_name || 'Table Order'}</span>
+        </div>
+      </div>
 
-        {cancelled ? (
-          <p className="ticket-cancelled">This order was cancelled. Please speak with staff.</p>
-        ) : (
-          <div className="status-track">
-            {STEPS.map((step, i) => (
-              <div key={step.key} className={`status-step ${i <= stepIndex ? 'done' : ''} ${i === stepIndex ? 'current' : ''}`}>
-                <span className="status-dot" />
-                <span className="status-label">{step.label}</span>
+      <div className="ticket-wrapper">
+        <div className="lux-ticket">
+          {/* Decorative notches */}
+          <div className="ticket-notch-hole left" />
+          <div className="ticket-notch-hole right" />
+
+          {/* Ticket Crest Header */}
+          <div className="ticket-header-block">
+            <div className="ticket-crest-seal">
+              <span>SG</span>
+            </div>
+            <p className="eyebrow-luxury">Official Table Receipt</p>
+            <h1 className="ticket-order-id">#{String(order.id).padStart(4, '0')}</h1>
+            <p className="ticket-table-badge">{order.table_name}</p>
+            <span className="ticket-time-stamp">
+              {new Date(order.created_at || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          </div>
+
+          {cancelled ? (
+            <div className="ticket-cancelled-banner">
+              <span className="cancelled-icon">⚠️</span>
+              <p className="cancelled-title">Order Cancelled</p>
+              <p className="cancelled-sub">This ticket has been cancelled. Please speak with floor staff for assistance.</p>
+            </div>
+          ) : (
+            <div className="order-live-progress-card">
+              <div className="current-status-banner">
+                <span className="current-status-icon">{currentStep.icon}</span>
+                <div className="current-status-texts">
+                  <span className="status-current-badge">{currentStep.label}</span>
+                  <p className="status-current-desc">{currentStep.desc}</p>
+                </div>
+              </div>
+
+              {/* Progress Stepper Track */}
+              <div className="ticket-stepper-track">
+                {STEPS.map((step, i) => {
+                  const isDone = i <= stepIndex;
+                  const isCurrent = i === stepIndex;
+                  return (
+                    <div key={step.key} className={`stepper-node ${isDone ? 'done' : ''} ${isCurrent ? 'current' : ''}`}>
+                      <div className="stepper-dot-outer">
+                        <div className="stepper-dot-inner" />
+                        {isCurrent && <div className="stepper-pulse-ring" />}
+                      </div>
+                      <span className="stepper-node-label">{step.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <div className="ticket-dashed-line" />
+
+          {/* Order Items */}
+          <div className="ticket-item-stream">
+            <div className="ticket-table-columns-header">
+              <span>Item &amp; Details</span>
+              <span>Subtotal</span>
+            </div>
+            {order.items.map(it => (
+              <div className="ticket-item-row" key={it.id}>
+                <div className="ticket-item-info">
+                  <div className="ticket-item-name-line">
+                    <span className="item-qty-badge">{it.quantity}×</span>
+                    <span className="item-name-text">{it.name_at_order}</span>
+                  </div>
+                  {it.item_notes && (
+                    <p className="ticket-item-notes">Note: “{it.item_notes}”</p>
+                  )}
+                </div>
+                <span className="ticket-item-amount">
+                  GH₵{(it.price_at_order * it.quantity).toFixed(2)}
+                </span>
               </div>
             ))}
           </div>
-        )}
 
-        <div className="ticket-divider" />
-
-        <div className="ticket-items">
-          {order.items.map(it => (
-            <div className="ticket-line" key={it.id}>
-              <span>{it.quantity}× {it.name_at_order}</span>
-              <span>GH₵{(it.price_at_order * it.quantity).toFixed(2)}</span>
+          {/* Order General Notes */}
+          {order.notes && (
+            <div className="ticket-general-note">
+              <span className="note-label">Kitchen Note:</span>
+              <p className="note-text">“{order.notes}”</p>
             </div>
-          ))}
+          )}
+
+          <div className="ticket-dashed-line" />
+
+          {/* Totals & Payment Reassurance */}
+          <div className="ticket-grand-total-row">
+            <span>Total Payable</span>
+            <span className="ticket-gold-price">GH₵{order.total.toFixed(2)}</span>
+          </div>
+
+          <div className="ticket-instructions-card">
+            <p className="ticket-instructions-title">💳 Counter / Table Payment</p>
+            <p className="ticket-instructions-sub">
+              Your server will attend to your table shortly. You may settle by cash, card, or mobile money upon service.
+            </p>
+          </div>
         </div>
-        <div className="ticket-divider" />
-        <div className="ticket-line total">
-          <span>Total</span>
-          <span>GH₵{order.total.toFixed(2)}</span>
-        </div>
-        <p className="ticket-note">Pay at the counter when your order is served.</p>
       </div>
 
-      <Link to={`/menu/${order.table_id}`} className="back-link">← Order something else</Link>
+      {/* Navigation Return Button */}
+      <div className="ticket-back-actions">
+        <Link to={`/menu/${order.table_id}`} className="order-more-btn">
+          <span>+ Add more dishes for {order.table_name}</span>
+        </Link>
+        <Link to="/" className="home-link-subtle">
+          Return to Dining Portal
+        </Link>
+      </div>
     </div>
   );
 }
