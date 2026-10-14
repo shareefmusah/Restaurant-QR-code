@@ -7,6 +7,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminMenu from './pages/AdminMenu';
 import AdminTables from './pages/AdminTables';
 import { api } from './api';
+import { Icon } from './components/Icons';
 
 function RequireAuth({ children }) {
   const token = localStorage.getItem('admin_token');
@@ -50,9 +51,11 @@ function Home() {
           <div className="landing-table-grid">
             {tables.map(t => (
               <Link to={`/menu/${t.id}`} key={t.id} className="table-select-card">
-                <span className="table-select-icon">📍</span>
+                <span className="table-select-icon"><Icon name="mapPin" size={18} /></span>
                 <span className="table-select-name">{t.name}</span>
-                <span className="table-select-action">Open Menu →</span>
+                <span className="table-select-action">
+                  Open Menu <Icon name="arrowRight" size={13} style={{ marginLeft: '4px' }} />
+                </span>
               </Link>
             ))}
           </div>
@@ -60,7 +63,7 @@ function Home() {
 
         <div className="landing-footer-bar">
           <Link to="/admin/login" className="landing-staff-link">
-            <span>🛡️</span>
+            <Icon name="shield" size={16} />
             <span>Kitchen &amp; Staff Portal</span>
           </Link>
         </div>

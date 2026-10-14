@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { api } from '../api';
+import { Icon } from '../components/Icons';
 
 const DEFAULT_IMAGES = {
   'spring rolls': '/images/spring_rolls.jpg',
@@ -16,14 +17,14 @@ const DEFAULT_IMAGES = {
 };
 
 const ITEM_BADGES = {
-  'spring rolls': ['Crispy', 'Popular 🔥'],
-  'chicken wings': ['Spicy 🌶️', "Chef's Pick ⭐"],
-  'jollof rice & chicken': ['Signature 👑', 'Best Seller 🔥'],
-  'grilled tilapia': ['Fresh Catch 🐟', "Chef's Pick ⭐"],
+  'spring rolls': ['Crispy', 'Popular'],
+  'chicken wings': ['Spicy', "Chef's Pick"],
+  'jollof rice & chicken': ['Signature', 'Best Seller'],
+  'grilled tilapia': ['Fresh Catch', "Chef's Pick"],
   'beef burger': ['Wagyu Smash', 'Artisan'],
-  'chocolate cake': ['Decadent 🍫', 'House Made'],
-  'fresh juice': ['Cold Pressed', 'Fresh 🍊'],
-  'bottled water': ['Chilled 💧']
+  'chocolate cake': ['Decadent', 'House Made'],
+  'fresh juice': ['Cold Pressed', 'Fresh Citrus'],
+  'bottled water': ['Chilled Spring']
 };
 
 export default function CustomerMenu() {
@@ -262,7 +263,7 @@ export default function CustomerMenu() {
           />
           {searchQuery && (
             <button className="search-clear-btn" onClick={() => setSearchQuery('')} aria-label="Clear search">
-              ×
+              <Icon name="x" size={14} />
             </button>
           )}
         </div>
@@ -270,16 +271,17 @@ export default function CustomerMenu() {
         {/* Quick Tag Pills */}
         <div className="tag-filter-rail">
           {[
-            { id: 'all', label: 'All Dishes' },
-            { id: 'popular', label: '🔥 Popular' },
-            { id: 'special', label: '⭐ Chef’s Choice' },
-            { id: 'spicy', label: '🌶️ Spicy' },
+            { id: 'all', label: 'All Dishes', icon: 'layoutGrid' },
+            { id: 'popular', label: 'Popular', icon: 'flame' },
+            { id: 'special', label: "Chef's Choice", icon: 'star' },
+            { id: 'spicy', label: 'Spicy', icon: 'zap' },
           ].map(tag => (
             <button
               key={tag.id}
               className={`tag-filter-pill ${selectedTag === tag.id ? 'active' : ''}`}
               onClick={() => setSelectedTag(tag.id)}
             >
+              <Icon name={tag.icon} size={13} style={{ marginRight: '6px' }} />
               {tag.label}
             </button>
           ))}
@@ -315,7 +317,7 @@ export default function CustomerMenu() {
       <main className="menu-body-lux">
         {filteredCategories.length === 0 ? (
           <div className="no-results-panel">
-            <p className="no-results-icon">🍽️</p>
+            <p className="no-results-icon"><Icon name="utensils" size={36} /></p>
             <h3>No culinary items found</h3>
             <p>Try searching for a different dish name or reset your filter.</p>
             <button className="reset-filter-btn" onClick={() => { setSearchQuery(''); setSelectedTag('all'); }}>
@@ -353,7 +355,7 @@ export default function CustomerMenu() {
                           />
                         ) : (
                           <div className="dish-media-placeholder">
-                            <span className="dish-placeholder-icon">✨</span>
+                            <span className="dish-placeholder-icon"><Icon name="sparkles" size={24} /></span>
                             <span className="dish-placeholder-label">Signature</span>
                           </div>
                         )}
@@ -387,7 +389,7 @@ export default function CustomerMenu() {
                         {/* Special Note pill if added */}
                         {inCart?.note && (
                           <div className="dish-note-pill" onClick={() => openItemDetails(item)}>
-                            <span className="note-icon">📝</span>
+                            <span className="note-icon"><Icon name="pencil" size={12} /></span>
                             <span className="note-text">"{inCart.note}"</span>
                           </div>
                         )}
@@ -486,14 +488,14 @@ export default function CustomerMenu() {
                 onClick={() => setCartOpen(false)}
                 aria-label="Close cart"
               >
-                ×
+                <Icon name="x" size={18} />
               </button>
             </div>
 
             <div className="cart-scroll-body">
               {cartList.length === 0 ? (
                 <div className="cart-empty-lux">
-                  <p className="cart-empty-icon">🍽️</p>
+                  <p className="cart-empty-icon"><Icon name="shoppingBag" size={36} /></p>
                   <p>Your order ticket is currently empty.</p>
                 </div>
               ) : (
@@ -604,12 +606,13 @@ export default function CustomerMenu() {
                 ) : (
                   <span className="btn-content-wrap">
                     <span>Send Order to Kitchen</span>
-                    <span className="btn-gold-arrow">→</span>
+                    <span className="btn-gold-arrow"><Icon name="arrowRight" size={14} /></span>
                   </span>
                 )}
               </button>
               <p className="pay-reassurance-text">
-                ✓ Pay at counter or server when your food is served
+                <Icon name="check" size={14} style={{ marginRight: '6px', verticalAlign: '-1px' }} />
+                Pay at counter or server when your food is served
               </p>
             </div>
           </div>
@@ -626,7 +629,7 @@ export default function CustomerMenu() {
               onClick={() => setDetailItem(null)}
               aria-label="Close dish preview"
             >
-              ×
+              <Icon name="x" size={18} />
             </button>
 
             {getItemImage(detailItem) && (

@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../api';
 import { getSocket } from '../socket';
+import { Icon } from '../components/Icons';
 
 const STEPS = [
-  { key: 'pending', label: 'Received', icon: '📝', desc: 'Order received by kitchen staff' },
-  { key: 'preparing', label: 'Preparing', icon: '🍳', desc: 'Chef is crafting your dishes' },
-  { key: 'ready', label: 'Ready', icon: '✨', desc: 'Prepared and being plated for serving' },
-  { key: 'served', label: 'Served', icon: '🍽️', desc: 'Dishes served to your table' },
+  { key: 'pending', label: 'Received', icon: 'clipboardList', desc: 'Order received by kitchen staff' },
+  { key: 'preparing', label: 'Preparing', icon: 'utensils', desc: 'Chef is crafting your dishes' },
+  { key: 'ready', label: 'Ready', icon: 'sparkles', desc: 'Prepared and being plated for serving' },
+  { key: 'served', label: 'Served', icon: 'checkCircle', desc: 'Dishes served to your table' },
 ];
 
 export default function OrderStatus() {
@@ -114,14 +115,14 @@ export default function OrderStatus() {
 
           {cancelled ? (
             <div className="ticket-cancelled-banner">
-              <span className="cancelled-icon">⚠️</span>
+              <span className="cancelled-icon"><Icon name="alertTriangle" size={28} /></span>
               <p className="cancelled-title">Order Cancelled</p>
               <p className="cancelled-sub">This ticket has been cancelled. Please speak with floor staff for assistance.</p>
             </div>
           ) : (
             <div className="order-live-progress-card">
               <div className="current-status-banner">
-                <span className="current-status-icon">{currentStep.icon}</span>
+                <span className="current-status-icon"><Icon name={currentStep.icon} size={28} /></span>
                 <div className="current-status-texts">
                   <span className="status-current-badge">{currentStep.label}</span>
                   <p className="status-current-desc">{currentStep.desc}</p>
@@ -190,7 +191,10 @@ export default function OrderStatus() {
           </div>
 
           <div className="ticket-instructions-card">
-            <p className="ticket-instructions-title">💳 Counter / Table Payment</p>
+            <p className="ticket-instructions-title">
+              <Icon name="creditCard" size={16} style={{ marginRight: '6px', verticalAlign: '-2px' }} />
+              Counter / Table Payment
+            </p>
             <p className="ticket-instructions-sub">
               Your server will attend to your table shortly. You may settle by cash, card, or mobile money upon service.
             </p>
@@ -201,7 +205,7 @@ export default function OrderStatus() {
       {/* Navigation Return Button */}
       <div className="ticket-back-actions">
         <Link to={`/menu/${order.table_id}`} className="order-more-btn">
-          <span>+ Add more dishes for {order.table_name}</span>
+          <span><Icon name="plus" size={14} style={{ marginRight: '4px', verticalAlign: '-1px' }} /> Add more dishes for {order.table_name}</span>
         </Link>
         <Link to="/" className="home-link-subtle">
           Return to Dining Portal
