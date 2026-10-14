@@ -117,7 +117,22 @@ export default function AdminDashboard() {
     socket.on('order:new', onNew);
     socket.on('order:updated', onUpdate);
 
+    // Continuous 3.5s polling fallback so no order is ever missed even if socket glitches
+    const pollInterval = setInterval(() => {
+      api.getOrders().then(latestOrders => {
+        setOrders(prev => {
+          const prevIds = new Set(prev.map(o => o.id));
+          const hasNew = latestOrders.some(o => !prevIds.has(o.id) && o.status === 'pending');
+          if (hasNew) {
+            playOrderChime();
+          }
+          return latestOrders;
+        });
+      }).catch(() => {});
+    }, 3500);
+
     return () => {
+      clearInterval(pollInterval);
       socket.off('order:new', onNew);
       socket.off('order:updated', onUpdate);
       socket.off('connect', joinRoom);

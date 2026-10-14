@@ -50,6 +50,6 @@ app.use('/api/orders', ordersRouter);
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
-server.listen(PORT, () => {
-  console.log(`QR Menu backend running on http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`QR Menu backend running on http://0.0.0.0:${PORT}`);
 });

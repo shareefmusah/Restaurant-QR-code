@@ -1,4 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+function getApiBase() {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (typeof window !== 'undefined' && window.location) {
+    const { protocol, hostname } = window.location;
+    return `${protocol}//${hostname}:4000`;
+  }
+  return 'http://localhost:4000';
+}
+
+const API_BASE = getApiBase();
 
 async function request(path, options = {}) {
   const token = localStorage.getItem('admin_token');
