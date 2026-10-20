@@ -19,6 +19,13 @@ async function request(path, options = {}) {
 
   const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
+  if (res.status === 401) {
+    localStorage.removeItem('admin_token');
+    if (typeof window !== 'undefined' && window.location && window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
+      window.location.href = '/admin/login?expired=1';
+    }
+    throw new Error(data.error || 'Session expired. Please sign in again.');
+  }
   if (!res.ok) throw new Error(data.error || 'Request failed');
   return data;
 }

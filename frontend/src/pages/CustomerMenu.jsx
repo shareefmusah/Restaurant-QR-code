@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { api } from '../api';
 import { Icon } from '../components/Icons';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 const DEFAULT_IMAGES = {
   'spring rolls': '/images/spring_rolls.jpg',
@@ -236,9 +237,12 @@ export default function CustomerMenu() {
           <span className="crest-mark">SG</span>
           <span className="restaurant-name">{menu.restaurant.name}</span>
         </div>
-        <div className="table-live-pill">
-          <span className="live-indicator-dot" />
-          <span className="table-live-label">{table.name}</span>
+        <div className="top-strip-actions">
+          <div className="table-live-pill">
+            <span className="live-indicator-dot" />
+            <span className="table-live-label">{table.name}</span>
+          </div>
+          <ThemeToggle />
         </div>
       </div>
 

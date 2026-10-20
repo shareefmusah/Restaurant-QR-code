@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAdminOrders } from '../context/AdminOrderContext';
 import { Icon } from './Icons';
+import { ThemeToggle } from './ThemeToggle';
 
 export default function AdminLayout({ active, children }) {
   const navigate = useNavigate();
@@ -27,7 +28,10 @@ export default function AdminLayout({ active, children }) {
           <Link to="/admin/menu" className={active === 'menu' ? 'active' : ''}>Menu</Link>
           <Link to="/admin/tables" className={active === 'tables' ? 'active' : ''}>Tables &amp; QR codes</Link>
         </nav>
-        <button className="logout-btn" onClick={logout}>Sign out</button>
+        <div className="admin-sidebar-footer">
+          <ThemeToggle showLabel className="admin-theme-toggle" />
+          <button type="button" className="logout-btn" onClick={logout}>Sign out</button>
+        </div>
       </aside>
 
       <main className="admin-main">

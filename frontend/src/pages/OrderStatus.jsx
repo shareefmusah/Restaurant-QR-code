@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../api';
 import { getSocket } from '../socket';
 import { Icon } from '../components/Icons';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 const STEPS = [
   { key: 'pending', label: 'Received', icon: 'clipboardList', desc: 'Order received by kitchen staff' },
@@ -88,9 +89,12 @@ export default function OrderStatus() {
           <span className="crest-mark">SG</span>
           <span className="restaurant-name">Swiss Gardens</span>
         </div>
-        <div className="table-live-pill">
-          <span className={`live-indicator-dot ${socketLive ? 'active' : ''}`} />
-          <span className="table-live-label">{order.table_name || 'Table Order'}</span>
+        <div className="top-strip-actions">
+          <div className="table-live-pill">
+            <span className={`live-indicator-dot ${socketLive ? 'active' : ''}`} />
+            <span className="table-live-label">{order.table_name || 'Table Order'}</span>
+          </div>
+          <ThemeToggle />
         </div>
       </div>
 

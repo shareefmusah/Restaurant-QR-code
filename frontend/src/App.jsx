@@ -9,6 +9,8 @@ import AdminTables from './pages/AdminTables';
 import { api } from './api';
 import { Icon } from './components/Icons';
 import { AdminOrderProvider } from './context/AdminOrderContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { ThemeToggle } from './components/ThemeToggle';
 
 function RequireAuth({ children }) {
   const token = localStorage.getItem('admin_token');
@@ -67,6 +69,7 @@ function Home() {
             <Icon name="shield" size={16} />
             <span>Kitchen &amp; Staff Portal</span>
           </Link>
+          <ThemeToggle showLabel className="landing-theme-toggle" />
         </div>
       </div>
     </div>
@@ -85,19 +88,21 @@ function AdminShellWrapper() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu/:tableId" element={<CustomerMenu />} />
-        <Route path="/order/:orderId" element={<OrderStatus />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route element={<AdminShellWrapper />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/menu" element={<AdminMenu />} />
-          <Route path="/admin/tables" element={<AdminTables />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu/:tableId" element={<CustomerMenu />} />
+          <Route path="/order/:orderId" element={<OrderStatus />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route element={<AdminShellWrapper />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/menu" element={<AdminMenu />} />
+            <Route path="/admin/tables" element={<AdminTables />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }

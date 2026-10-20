@@ -15,6 +15,7 @@ export default function AdminDashboard() {
     preparingCount,
     readyCount,
     connected,
+    updatingId,
     playOrderChime,
     advanceOrder,
     cancelOrder,
@@ -102,9 +103,23 @@ export default function AdminDashboard() {
                     </ul>
                     <div className="order-card-total">GH₵{order.total.toFixed(2)}</div>
                     <div className="order-card-actions">
-                      <button className="advance-btn" onClick={() => advanceOrder(order, col.next)}>{col.nextLabel}</button>
+                      <button
+                        type="button"
+                        className="advance-btn"
+                        disabled={updatingId === order.id}
+                        onClick={() => advanceOrder(order, col.next)}
+                      >
+                        {updatingId === order.id ? 'Updating…' : col.nextLabel}
+                      </button>
                       {col.key === 'pending' && (
-                        <button className="cancel-btn" onClick={() => cancelOrder(order)}>Cancel</button>
+                        <button
+                          type="button"
+                          className="cancel-btn"
+                          disabled={updatingId === order.id}
+                          onClick={() => cancelOrder(order)}
+                        >
+                          Cancel
+                        </button>
                       )}
                     </div>
                   </div>

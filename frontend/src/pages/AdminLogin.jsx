@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../api';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [searchParams] = useSearchParams();
+  const isExpired = searchParams.get('expired') === '1';
+  const [error, setError] = useState(isExpired ? 'Session expired. Please sign in again.' : '');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 

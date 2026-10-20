@@ -6,7 +6,15 @@ const AdminOrderContext = createContext(null);
 
 export function AdminOrderProvider({ children }) {
   const [orders, setOrders] = useState([]);
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(() => {
+    try {
+      const s = getSocket();
+      return s ? s.connected : false;
+    } catch {
+      return false;
+    }
+  });
+  const [updatingId, setUpdatingId] = useState(null);
   const [newOrderToast, setNewOrderToast] = useState(null);
   const audioCtxRef = useRef(null);
 
@@ -79,19 +87,49 @@ export function AdminOrderProvider({ children }) {
     api.getOrders().then(setOrders).catch(() => {});
 
     const socket = getSocket();
-    if (!socket.connected) socket.connect();
 
     function joinRoom() {
       const token = localStorage.getItem('admin_token');
-      socket.emit('join:admin', token);
+      if (token) {
+        socket.emit('join:admin', token);
+      }
     }
 
-    if (socket.connected) {
+    function handleConnect() {
+      setConnected(true);
       joinRoom();
     }
-    socket.on('connect', joinRoom);
-    socket.on('joined:admin', () => setConnected(true));
-    socket.on('disconnect', () => setConnected(false));
+
+    function handleJoined() {
+      setConnected(true);
+    }
+
+    function handleDisconnect() {
+      setConnected(false);
+    }
+
+    function handleError(err) {
+      console.warn('Socket error:', err);
+      if (err === 'Invalid admin token' || (typeof err === 'string' && err.toLowerCase().includes('token'))) {
+        localStorage.removeItem('admin_token');
+        setConnected(false);
+        if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
+          window.location.href = '/admin/login?expired=1';
+        }
+      }
+    }
+
+    socket.on('connect', handleConnect);
+    socket.on('joined:admin', handleJoined);
+    socket.on('disconnect', handleDisconnect);
+    socket.on('error', handleError);
+
+    if (socket.connected) {
+      setConnected(true);
+      joinRoom();
+    } else {
+      socket.connect();
+    }
 
     function onNew(order) {
       setOrders(prev => {
@@ -134,9 +172,10 @@ export function AdminOrderProvider({ children }) {
       clearInterval(pollInterval);
       socket.off('order:new', onNew);
       socket.off('order:updated', onUpdate);
-      socket.off('connect', joinRoom);
-      socket.off('joined:admin');
-      socket.off('disconnect');
+      socket.off('connect', handleConnect);
+      socket.off('joined:admin', handleJoined);
+      socket.off('disconnect', handleDisconnect);
+      socket.off('error', handleError);
       window.removeEventListener('click', unlockAudio);
       window.removeEventListener('touchstart', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
@@ -144,6 +183,7 @@ export function AdminOrderProvider({ children }) {
   }, []);
 
   async function advanceOrder(order, nextStatus) {
+    setUpdatingId(order.id);
     try {
       const updated = await api.updateOrderStatus(order.id, nextStatus);
       if (nextStatus === 'served' || nextStatus === 'cancelled') {
@@ -151,7 +191,12 @@ export function AdminOrderProvider({ children }) {
       } else {
         setOrders(prev => prev.map(o => (o.id === order.id ? updated : o)));
       }
-    } catch { /* ignore */ }
+    } catch (err) {
+      console.error('Failed to advance order:', err);
+      alert(err.message || 'Could not update order status. Please check connection or sign in again.');
+    } finally {
+      setUpdatingId(null);
+    }
   }
 
   async function cancelOrder(order) {
@@ -173,6 +218,7 @@ export function AdminOrderProvider({ children }) {
         preparingCount,
         readyCount,
         connected,
+        updatingId,
         playOrderChime,
         advanceOrder,
         cancelOrder,
