@@ -1,72 +1,107 @@
+/* =========================================================
+   Minimalist Theme — Clean, Light mode default
+   Dark mode via prefers-color-scheme
+   ========================================================= */
+
 :root {
-  /* =========================================================
-     Swiss Gardens — Modern Luxury Sleek Dark Theme
-     Deep Obsidian surfaces with Warm Brushed Gold accents
-     ========================================================= */
+  /* ---- Light Mode (Default) ---- */
 
-  /* Surface and Background */
-  --bg-base: #0A0D12;
-  --bg-surface: #121620;
-  --bg-surface-raised: #181D2A;
-  --bg-surface-card: #141924;
-  --bg-surface-card-hover: #1A2130;
-  --bg-surface-glass: rgba(14, 18, 26, 0.82);
-  --bg-overlay: rgba(6, 8, 12, 0.78);
+  /* Surfaces */
+  --bg-base: #FAFAFA;
+  --bg-surface: #FFFFFF;
+  --bg-surface-card: #F4F4F5;
+  --bg-surface-raised: #EEEEEF;
+  --bg-overlay: rgba(0, 0, 0, 0.4);
 
-  /* Brand Accents: Rich Warm Gold & Amber */
-  --gold: #E5A93C;
-  --gold-light: #F7D58C;
-  --gold-dark: #B8801C;
-  --gold-surface: rgba(229, 169, 60, 0.09);
-  --gold-border: rgba(229, 169, 60, 0.28);
-  --gold-glow: rgba(229, 169, 60, 0.24);
+  /* Accent */
+  --accent: #111111;
+  --accent-soft: rgba(17, 17, 17, 0.06);
+  --accent-border: rgba(17, 17, 17, 0.15);
 
-  /* Typography Colors */
-  --text-primary: #F9FAFB;
-  --text-secondary: #D6D9E0;
-  --text-muted: #9BA3B2;
-  --text-subtle: #636D7E;
-
-  /* State & Functional */
-  --emerald: #10B981;
-  --emerald-surface: rgba(16, 185, 129, 0.12);
-  --blue: #3B82F6;
-  --blue-surface: rgba(59, 130, 246, 0.12);
-  --alert: #EF4444;
-  --alert-surface: rgba(239, 68, 68, 0.12);
-
-  /* Lines & Dividers */
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --line-gold: rgba(229, 169, 60, 0.35);
-
-  /* Backwards compatibility aliases */
-  --paper: var(--bg-base);
-  --paper-raised: var(--bg-surface-card);
-  --ink: var(--text-primary);
-  --ink-soft: var(--text-muted);
-  --ash: #D6D9E0;
-  --ash-dark: #0A0D12;
-  --ash-mid: #9BA3B2;
-  --forest: var(--gold);
-  --forest-dark: var(--bg-surface);
+  /* Functional */
+  --emerald: #16A34A;
+  --emerald-surface: rgba(22, 163, 74, 0.08);
+  --blue: #2563EB;
+  --blue-surface: rgba(37, 99, 235, 0.08);
+  --alert: #DC2626;
+  --alert-surface: rgba(220, 38, 38, 0.08);
 
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --text-primary: #111111;
+  --text-secondary: #444444;
+  --text-muted: #777777;
+  --text-subtle: #AAAAAA;
 
-  /* Geometry & Elevation */
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  /* Lines */
+  --line: rgba(0, 0, 0, 0.08);
+  --line-strong: rgba(0, 0, 0, 0.15);
+
+  /* Fonts */
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Mono', monospace;
+
+  /* Geometry */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-gold: 0 6px 24px rgba(229, 169, 60, 0.3);
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  /* Legacy compat */
+  --gold: #111111;
+  --gold-light: #333333;
+  --gold-dark: #000000;
+  --gold-surface: rgba(17, 17, 17, 0.05);
+  --gold-border: rgba(17, 17, 17, 0.15);
+  --gold-glow: rgba(17, 17, 17, 0.06);
+  --shadow-gold: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ---- Dark Mode ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Surfaces */
+    --bg-base: #0C0C0C;
+    --bg-surface: #141414;
+    --bg-surface-card: #1C1C1C;
+    --bg-surface-raised: #242424;
+    --bg-overlay: rgba(0, 0, 0, 0.6);
+
+    /* Accent */
+    --accent: #F5F5F5;
+    --accent-soft: rgba(245, 245, 245, 0.06);
+    --accent-border: rgba(245, 245, 245, 0.15);
+
+    /* Typography */
+    --text-primary: #F5F5F5;
+    --text-secondary: #AAAAAA;
+    --text-muted: #777777;
+    --text-subtle: #555555;
+
+    /* Lines */
+    --line: rgba(255, 255, 255, 0.07);
+    --line-strong: rgba(255, 255, 255, 0.12);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+    /* Legacy compat */
+    --gold: #F5F5F5;
+    --gold-light: #CCCCCC;
+    --gold-dark: #FFFFFF;
+    --gold-surface: rgba(245, 245, 245, 0.05);
+    --gold-border: rgba(245, 245, 245, 0.12);
+    --gold-glow: rgba(245, 245, 245, 0.06);
+    --shadow-gold: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
 }
 
 * {
@@ -84,11 +119,6 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(229, 169, 60, 0.05) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 90%, rgba(229, 169, 60, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 100%);
-  background-attachment: fixed;
 }
 
 button {
@@ -109,29 +139,29 @@ a {
 }
 
 ::selection {
-  background: var(--gold);
-  color: #0A0D12;
+  background: var(--text-primary);
+  color: var(--bg-base);
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
 /* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-base);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--line-strong);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
+  background: var(--text-subtle);
 }
 
 @media (prefers-reduced-motion: reduce) {
