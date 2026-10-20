@@ -1,6 +1,6 @@
 const Database = require('better-sqlite3');
 const path = require('path');
-const bcrypt = require('crypto');
+const crypto = require('crypto');
 
 const db = new Database(path.join(__dirname, 'restaurant.db'));
 db.pragma('journal_mode = WAL');
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS order_items (
 
 // ---------- SEED ----------
 function hashPassword(password, salt) {
-  return bcrypt.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
+  return crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
 }
 
 function seed() {
@@ -78,7 +78,7 @@ function seed() {
 
   const adminExists = db.prepare('SELECT id FROM admins WHERE username = ?').get('admin');
   if (!adminExists) {
-    const salt = require('crypto').randomBytes(16).toString('hex');
+    const salt = crypto.randomBytes(16).toString('hex');
     const hash = hashPassword('admin123', salt);
     db.prepare('INSERT INTO admins (username, password_hash, password_salt) VALUES (?, ?, ?)').run('admin', hash, salt);
     console.log('Seeded default admin -> username: admin / password: admin123 (CHANGE THIS)');
