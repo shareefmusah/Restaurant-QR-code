@@ -133,16 +133,16 @@
 
 .primary-btn-link {
   display: inline-block;
-  background: var(--text-primary);
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
   font-weight: 600;
   padding: 10px 20px;
   border-radius: var(--radius);
   font-size: 0.875rem;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, background-color 0.15s;
 }
 .primary-btn-link:hover {
-  opacity: 0.8;
+  background: var(--btn-primary-hover);
 }
 
 /* ============================================================
@@ -175,7 +175,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: var(--text-primary);
+  background: var(--btn-primary-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,7 +185,7 @@
 .crest-initials {
   font-size: 1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--btn-primary-text);
   letter-spacing: 0.02em;
 }
 
@@ -323,13 +323,13 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--text-primary);
+  background: var(--btn-primary-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.65rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--btn-primary-text);
   flex: 0 0 auto;
 }
 
@@ -479,9 +479,9 @@
   color: var(--text-primary);
 }
 .tag-filter-pill.active {
-  background: var(--text-primary);
-  border-color: var(--text-primary);
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
 }
 
 /* ---- Sticky Category Rail ---- */
@@ -519,9 +519,9 @@
   color: var(--text-primary);
 }
 .category-pill-lux.active {
-  background: var(--text-primary);
-  border-color: var(--text-primary);
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
 }
 .category-pill-lux.disabled {
   opacity: 0.3;
