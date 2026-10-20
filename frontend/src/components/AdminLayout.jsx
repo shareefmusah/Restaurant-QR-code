@@ -44,7 +44,7 @@ export default function AdminLayout({ active, children }) {
               <Icon name="bell" size={16} />
               <span>New Order #{String(newOrderToast.id).padStart(4, '0')} received for {newOrderToast.table_name || 'Table'}!</span>
             </div>
-            <span className="toast-action">View Live Orders &rarr;</span>
+            <span className="toast-action">View Live Orders <Icon name="arrowRight" size={13} /></span>
           </div>
         )}
         {children}

@@ -417,7 +417,7 @@ export default function CustomerMenu() {
                                 onClick={() => changeQty(item.id, -1)}
                                 aria-label="Decrease quantity"
                               >
-                                –
+                                <Icon name="minus" size={14} />
                               </button>
                               <span className="stepper-val">{inCart.qty}</span>
                               <button
@@ -426,7 +426,7 @@ export default function CustomerMenu() {
                                 onClick={() => changeQty(item.id, 1)}
                                 aria-label="Increase quantity"
                               >
-                                +
+                                <Icon name="plus" size={14} />
                               </button>
                             </div>
                           ) : (
@@ -435,7 +435,7 @@ export default function CustomerMenu() {
                               className="lux-add-btn"
                               onClick={() => addToCart(item)}
                             >
-                              <span className="plus-symbol">+</span> Add
+                              <Icon name="plus" size={13} /> Add
                             </button>
                           )}
                         </div>
@@ -540,7 +540,7 @@ export default function CustomerMenu() {
                             className="stepper-btn minus"
                             onClick={() => changeQty(item.id, -1)}
                           >
-                            –
+                            <Icon name="minus" size={14} />
                           </button>
                           <span className="stepper-val">{qty}</span>
                           <button
@@ -548,7 +548,7 @@ export default function CustomerMenu() {
                             className="stepper-btn plus"
                             onClick={() => changeQty(item.id, 1)}
                           >
-                            +
+                            <Icon name="plus" size={14} />
                           </button>
                         </div>
                       </div>

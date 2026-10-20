@@ -2450,12 +2450,8 @@
   color: var(--text-secondary);
   display: flex;
   align-items: center;
-  gap: 4px;
-}
-.order-card-items li::before {
-  content: '—';
-  color: var(--text-subtle);
-  font-size: 0.65rem;
+  gap: 6px;
+  padding-left: 8px;
 }
 
 .order-card-total {
