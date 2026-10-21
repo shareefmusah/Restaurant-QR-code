@@ -10,12 +10,10 @@ export function ThemeProvider({ children }) {
     try {
       const saved = localStorage.getItem('sg_theme');
       if (saved === 'dark' || saved === 'light') return saved;
-      if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
     } catch {
       // ignore
     }
+    // Light mode is the default mode everywhere for customers and staff
     return 'light';
   });
 

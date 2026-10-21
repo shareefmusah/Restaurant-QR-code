@@ -121,49 +121,6 @@
   --shadow-gold: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* ---- Dark Mode: System Preference (when no explicit data-theme="light") ---- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg-base: #0C0C0C;
-    --bg-surface: #141414;
-    --bg-surface-card: #1C1C1C;
-    --bg-surface-raised: #242424;
-    --bg-overlay: rgba(0, 0, 0, 0.65);
-
-    --btn-primary-bg: #EDEDED;
-    --btn-primary-text: #111111;
-    --btn-primary-hover: #FFFFFF;
-
-    --btn-secondary-bg: #1C1C1C;
-    --btn-secondary-text: #F5F5F5;
-    --btn-secondary-border: rgba(255, 255, 255, 0.16);
-    --btn-secondary-hover: #262626;
-
-    --accent: #F5F5F5;
-    --accent-soft: rgba(245, 245, 245, 0.06);
-    --accent-border: rgba(245, 245, 245, 0.15);
-
-    --text-primary: #F5F5F5;
-    --text-secondary: #AAAAAA;
-    --text-muted: #777777;
-    --text-subtle: #555555;
-
-    --line: rgba(255, 255, 255, 0.08);
-    --line-strong: rgba(255, 255, 255, 0.15);
-
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-
-    --gold: #F5F5F5;
-    --gold-light: #CCCCCC;
-    --gold-dark: #FFFFFF;
-    --gold-surface: rgba(245, 245, 245, 0.05);
-    --gold-border: rgba(245, 245, 245, 0.12);
-    --gold-glow: rgba(245, 245, 245, 0.06);
-    --shadow-gold: 0 2px 8px rgba(0, 0, 0, 0.4);
-  }
-}
 
 * {
   box-sizing: border-box;
