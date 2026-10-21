@@ -2778,71 +2778,325 @@
   margin-top: 4px;
 }
 
-/* ---- Admin Tables Grid (QR codes) ---- */
-.page-intro {
+/* ---- Admin Tables Grid & Stand Cards ---- */
+.tables-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.inline-add-table-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 440px;
+}
+.inline-add-table-form input {
+  flex: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+.inline-add-table-form input:focus {
+  border-color: var(--text-primary);
+  outline: none;
+}
+.add-table-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  margin-top: 0;
+  padding: 9px 16px;
   font-size: 0.84rem;
+  white-space: nowrap;
+}
+
+.tables-count-pill {
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--text-muted);
-  margin: -8px 0 18px;
-  line-height: 1.6;
+  background: var(--bg-surface-card);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--line);
+}
+
+.print-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 500;
 }
 
 .table-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
+  align-items: start;
 }
 
-.table-card {
+.table-stand-item {
   background: var(--bg-surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  text-align: center;
-  transition: border-color 0.15s;
+  gap: 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow-sm);
 }
-.table-card:hover {
+.table-stand-item:hover {
   border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
 }
 
-.table-card-qr {
-  background: #ffffff;
-  border: 1px solid var(--line);
+/* Realistic Table Stand Mockup */
+.stand-card-preview {
+  background: #FFFFFF;
+  border: 2px solid #111111;
   border-radius: var(--radius-sm);
+  padding: 18px 16px 16px;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  color: #111111;
+}
+.stand-card-inner {
+  border: 1px solid #E5E5E5;
+  padding: 16px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stand-brand-seal {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #111111;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.stand-brand-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0 0 2px;
+  color: #111111;
+}
+
+.stand-brand-sub {
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  color: #666666;
+  font-weight: 600;
+}
+
+.stand-divider-mini {
+  width: 44px;
+  height: 1px;
+  background: #111111;
+  margin: 8px 0 10px;
+}
+
+.stand-table-pill {
+  background: #111111;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 16px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.stand-qr-box {
+  background: #FAFAFA;
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 12px;
+  width: 170px;
+  height: 170px;
+}
+.stand-qr-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
-.table-card-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
+.stand-scan-heading {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+  color: #111111;
 }
 
-.table-card-url {
-  font-size: 0.65rem;
-  color: var(--text-subtle);
-  margin: 0;
-  word-break: break-all;
+.stand-instructions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.62rem;
+  color: #555555;
+  margin-bottom: 8px;
   line-height: 1.4;
 }
 
-.table-card-actions {
+.stand-badge-pill {
+  background: #F4F4F5;
+  color: #555555;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.stand-divider-thin {
+  width: 85%;
+  height: 1px;
+  background: #EAEAEA;
+  margin-bottom: 6px;
+}
+
+.stand-url-text {
+  font-size: 0.58rem;
+  color: #888888;
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+
+/* Stand Card Controls */
+.stand-card-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stand-card-name-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.stand-card-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.stand-card-code {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.stand-actions-row {
   display: flex;
   gap: 6px;
-  width: 100%;
 }
-.table-card-actions .text-btn {
+
+.stand-btn-primary {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: none;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, background-color 0.15s;
+}
+.stand-btn-primary:hover {
+  background: var(--btn-primary-hover);
+}
+
+.stand-actions-secondary {
+  display: flex;
+  gap: 6px;
+}
+.stand-sub-btn {
   flex: 1;
-  text-align: center;
-  font-size: 0.72rem;
-  padding: 5px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  padding: 6px 8px;
+}
+.stand-del-btn {
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  flex-shrink: 0;
+}
+
+/* Print Stylesheet for Table Stands */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #111111 !important;
+  }
+  .admin-sidebar,
+  .no-print,
+  .dashboard-header,
+  .admin-sidebar-footer,
+  .tables-top-bar,
+  .stand-card-controls {
+    display: none !important;
+  }
+  .admin-shell, .admin-main {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #FFFFFF !important;
+  }
+  .table-grid {
+    display: block !important;
+  }
+  .table-stand-item {
+    page-break-after: always;
+    break-after: page;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 20mm !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .stand-card-preview {
+    max-width: 130mm;
+    margin: auto;
+    box-shadow: none !important;
+  }
 }
 
 /* ============================================================
