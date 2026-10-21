@@ -1,6 +1,7 @@
 import AdminLayout from '../components/AdminLayout';
 import { Icon } from '../components/Icons';
 import { useAdminOrders } from '../context/AdminOrderContext';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 const COLUMNS = [
   { key: 'pending', label: 'New', next: 'preparing', nextLabel: 'Start preparing' },
@@ -29,6 +30,7 @@ export default function AdminDashboard() {
           <p className="page-subheading">Real-time floor &amp; kitchen management dispatch</p>
         </div>
         <div className="dashboard-header-actions">
+          <ThemeToggle />
           <span className={`conn-badge ${connected ? 'on' : 'off'}`}>
             <span className="live-dot-mini" /> {connected ? 'Terminal Live' : 'Connecting…'}
           </span>
